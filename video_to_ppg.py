@@ -1,6 +1,10 @@
 import os
 import cv2
 import utils
+import glob
+import numpy as np
+from PIL import Image
+import matplotlib.pyplot as plt
 
 # read video
 cwd = os.getcwd()
@@ -27,7 +31,16 @@ if not check:
         cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file
         success,image = vidcap.read()
         count += 1
+else:
+    # if frames already exist
+    frames = list()
+    os.chdir(path)
+    print(path)
+    for filename in glob.iglob('*.jpg'):
+        img = Image.open(filename)
+        frames.append(np.array(img))
+        img.close()
+        if "35" in filename: break
 
-
-
-
+plt.imshow(frames[0])
+plt.show()
