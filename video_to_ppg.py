@@ -33,14 +33,44 @@ if not check:
         count += 1
 else:
     # if frames already exist
+    limit = 60*10  # how many frames you want to use, uncomment line 44 to use
     frames = list()
     os.chdir(path)
     print(path)
     for filename in glob.iglob('*.jpg'):
-        img = Image.open(filename)
-        frames.append(np.array(img))
-        img.close()
-        if "35" in filename: break
+        im = Image.open(filename)
+        frames.append(np.array(im))
+        im.close()
+        if str(limit) in filename: break
 
-plt.imshow(frames[0])
+height = np.size(frames[0], 0)
+width  = np.size(frames[0], 1)
+depth  = np.size(frames[0], 2)
+
+reds   = list()
+greens = list()
+blues  = list()
+
+for img in frames:
+    red_sum   = 0
+    green_sum = 0
+    blue_sum  = 0
+    for i in range(height):
+        for j in range(width):
+            red_sum   += img[i][j][0]
+            green_sum += img[i][j][1]
+            blue_sum  += img[i][j][2]
+            
+    reds.append  (red_sum)
+    greens.append(green_sum)
+    blues.append (blue_sum)
+
+plt.figure(0)
+plt.plot(range(len(reds)), reds)
+plt.plot(range(len(greens)), greens)
+plt.plot(range(len(blues)), blues)
+
+plt.figure(1)
+plt.plot(np.array(range(len(reds)))/(len(reds)-1), reds)
+
 plt.show()
