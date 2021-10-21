@@ -1,9 +1,9 @@
 import os
 
-def check_if_saved_before(folder: str, file: str) -> str, bool:
+def check_if_saved_before(frame_dir: str,vid_name: str) -> list:
     check = True
     
-    path = os.path.join(folder, file)
+    path = os.path.join(frame_dir, vid_name)
     # remove file extension from folder name
     path = os.path.splitext(path)[0]
 
@@ -13,4 +13,4 @@ def check_if_saved_before(folder: str, file: str) -> str, bool:
         os.mkdir(path)
         check = False
 
-    return [foldername, check]
+    return [path, check]

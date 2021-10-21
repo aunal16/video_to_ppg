@@ -3,14 +3,15 @@ import cv2
 import utils
 
 # read video
-video_foldername = os.getcwd +  '\Videos'
-video_filename = 'IMG_3836.MOV'
-video_path = os.path.join(video_foldername, video_filename)
-vidcap = cv2.VideoCapture(video_path)
+cwd = os.getcwd()
+video_folder_dir = os.path.join(cwd, 'Videos')
+video_file_name  = 'IMG_3836.MOV'
+
+video_dir = os.path.join(video_folder_dir, video_file_name)
+vidcap = cv2.VideoCapture(video_dir)
 
 # check whether saved before
-pwd = os.getcwd()
-frame_foldername = os.path.join(pwd, 'Frames')
-check = utils.check_if_saved_before(frame_foldername, video_filename)
+frame_folder_dir = os.path.join(cwd, 'Frames')
+check = utils.check_if_saved_before(frame_folder_dir, video_file_name)
 
 
